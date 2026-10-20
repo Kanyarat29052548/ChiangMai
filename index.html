@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>หลงถิ่น กินเที่ยว พาชมเมืองเชียงใหม่</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Prompt -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cmRed: '#C23B22',      // ส้มอมแดงหลัก (Copper Red / Flame)
+                        cmRedDark: '#9E2A1B',  // ส้มอมแดงเข้ม
+                        cmOrange: '#E05A47',   // ส้มสดใส
+                        cmPeach: '#FFF3F0',    // ส้มอ่อนนุ่มนวล
+                        cmDark: '#221919',     // เทาเข้มปนแดง
+                    },
+                    fontFamily: {
+                        sans: ['Prompt', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        .hero-bg {
+            background: linear-gradient(rgba(34, 25, 25, 0.6), rgba(194, 59, 34, 0.8)), url('https://images.unsplash.com/photo-1598970434795-0c54fe7c0648?auto=format&fit=crop&q=80&w=1600') center/cover no-repeat;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #FFF3F0;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #E05A47;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50 text-gray-800 flex flex-col min-h-screen">
+
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-orange-100 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center space-x-3 group">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-cmRedDark via-cmRed to-cmOrange flex items-center justify-center text-white shadow-lg shadow-cmRed/20 transform group-hover:scale-105 transition-all duration-300">
+                        <i class="fa-solid font-bold text-xl fa-mountain-sun"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-xl font-bold bg-gradient-to-r from-cmRedDark to-cmOrange bg-clip-text text-transparent leading-tight">
+                            หลงถิ่น กินเที่ยว
+                        </span>
+                        <span class="text-xs text-gray-500 font-medium tracking-wider">พาชมเมืองเชียงใหม่</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Menu -->
+                <nav class="hidden lg:flex items-center space-x-1">
+                    <a href="#places" class="px-3.5 py-2 rounded-xl text-gray-700 font-medium hover:text-cmRed hover:bg-cmPeach transition-all text-sm">
+                        <i class="fa-solid fa-map-location-dot mr-1.5 text-cmRed/70"></i>สถานที่เที่ยว
+                    </a>
+                    <a href="#food" class="px-3.5 py-2 rounded-xl text-gray-700 font-medium hover:text-cmRed hover:bg-cmPeach transition-all text-sm">
+                        <i class="fa-solid fa-utensils mr-1.5 text-cmRed/70"></i>อาหารล้านนา
+                    </a>
+                    <a href="#seasons" class="px-3.5 py-2 rounded-xl text-gray-700 font-medium hover:text-cmRed hover:bg-cmPeach transition-all text-sm">
+                        <i class="fa-solid fa-cloud-sun-rain mr-1.5 text-cmRed/70"></i>ฤดูกาล & เดินทาง
+                    </a>
+                    <a href="#festivals" class="px-3.5 py-2 rounded-xl text-gray-700 font-medium hover:text-cmRed hover:bg-cmPeach transition-all text-sm">
+                        <i class="fa-solid fa-cloud-moon mr-1.5 text-cmRed/70"></i>เทศกาล
+                    </a>
+                    <a href="#plan" class="px-3.5 py-2 rounded-xl text-gray-700 font-medium hover:text-cmRed hover:bg-cmPeach transition-all text-sm">
+                        <i class="fa-solid fa-route mr-1.5 text-cmRed/70"></i>แผนทริป 3-7 วัน
+                    </a>
+                    <a href="#plan" class="ml-2 px-4 py-2 rounded-xl bg-gradient-to-r from-cmRed to-cmOrange text-white text-sm font-medium hover:opacity-95 shadow-md shadow-cmRed/20 transition-all">
+                        แพลนทริปเลย
+                    </a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <div class="lg:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="p-2.5 rounded-xl text-gray-700 hover:text-cmRed hover:bg-cmPeach focus:outline-none transition-colors" aria-label="Toggle Menu">
+                        <i id="menu-icon" class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-orange-100 px-4 pt-2 pb-6 space-y-2 shadow-xl">
+            <a href="#places" class="mobile-link flex items-center px-4 py-3 rounded-xl text-gray-700 font-medium hover:bg-cmPeach hover:text-cmRed transition-colors">
+                <i class="fa-solid fa-map-location-dot w-8 text-cmRed"></i>สถานที่ท่องเที่ยว
+            </a>
+            <a href="#food" class="mobile-link flex items-center px-4 py-3 rounded-xl text-gray-700 font-medium hover:bg-cmPeach hover:text-cmRed transition-colors">
+                <i class="fa-solid fa-utensils w-8 text-cmRed"></i>อาหารขึ้นชื่อ
+            </a>
+            <a href="#seasons" class="mobile-link flex items-center px-4 py-3 rounded-xl text-gray-700 font-medium hover:bg-cmPeach hover:text-cmRed transition-colors">
+                <i class="fa-solid fa-cloud-sun-rain w-8 text-cmRed"></i>ฤดูกาล & การเดินทาง
+            </a>
+            <a href="#festivals" class="mobile-link flex items-center px-4 py-3 rounded-xl text-gray-700 font-medium hover:bg-cmPeach hover:text-cmRed transition-colors">
+                <i class="fa-solid fa-cloud-moon w-8 text-cmRed"></i>เทศกาลประเพณี
+            </a>
+            <a href="#plan" class="mobile-link flex items-center px-4 py-3 rounded-xl text-gray-700 font-medium hover:bg-cmPeach hover:text-cmRed transition-colors">
+                <i class="fa-solid fa-route w-8 text-cmRed"></i>แพลนเที่ยว 3 - 7 วัน
+            </a>
+            <div class="pt-2">
+                <a href="#plan" class="mobile-link block w-full text-center py-3 rounded-xl bg-gradient-to-r from-cmRed to-cmOrange text-white font-medium shadow-md shadow-cmRed/20">
+                    วางแผนทริปเชียงใหม่
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero-bg text-white py-24 lg:py-36 relative overflow-hidden flex items-center min-h-[550px]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full text-center md:text-left">
+            <div class="md:w-3/5 space-y-6">
+                <div class="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md px-4 py-1.5 rounded-full text-sm font-medium border border-white/30 text-orange-100">
+                    <i class="fa-solid fa-location-arrow text-emerald-300 animate-pulse"></i>
+                    <span>ระบบ GPS นำทางพร้อมใช้งาน + แพลนเที่ยว 3-7 วัน</span>
+                </div>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight drop-shadow-md">
+                    สัมผัสเมืองเหนือ <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-200 via-amber-200 to-white">
+                        ต๋อนยอน กิน เที่ยว
+                    </span> ไฮไลท์เชียงใหม่
+                </h1>
+                <p class="text-gray-200 text-base sm:text-lg font-light leading-relaxed max-w-2xl drop-shadow">
+                    รวมพิกัด GPS นำทางเที่ยวได้จริง รวบรวมแพลนจัดทริปเที่ยวทั่วเชียงใหม่ตั้งแต่ 3 วัน จนถึง 1 สัปดาห์เต็ม ลิ้มลองอาหารเหนือแท้ และข้อมูลเดินทางครบจบในที่เดียว
+                </p>
+                <div class="pt-4 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <a href="#places" class="px-8 py-4 rounded-2xl bg-cmRed hover:bg-cmRedDark text-white font-medium shadow-lg shadow-black/20 transform hover:-translate-y-0.5 transition-all text-center">
+                        สำรวจที่เที่ยว + GPS <i class="fa-solid fa-compass ml-2"></i>
+                    </a>
+                    <a href="#plan" class="px-8 py-4 rounded-2xl bg-white/20 hover:bg-white/30 backdrop-blur-md text-white font-medium border border-white/40 transition-all text-center">
+                        ดูโปรแกรมทริป 3-7 วัน
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Decorative Glow -->
+        <div class="absolute -bottom-20 -right-20 w-96 h-96 bg-cmOrange/30 rounded-full filter blur-3xl pointer-events-none"></div>
+    </section>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow space-y-20 py-16">
+
+        <section id="places" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
+                <div>
+                    <span class="text-cmRed font-semibold tracking-wider text-sm uppercase"><i class="fa-solid fa-location-crosshairs mr-1"></i> Interactive GPS Map Ready</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mt-1">สถานที่ท่องเที่ยวห้ามพลาด</h2>
+                </div>
+                <p class="text-gray-600 mt-2 md:mt-0 max-w-md">กดปุ่ม GPS ในแต่ละสถานที่เพื่อเปิดแผนที่ Google Maps นำทางนำคุณไปยังจุดหมายได้ทันที</p>
+            </div>
+
+            <!-- Categories Filter Badges -->
+            <div class="flex space-x-2 overflow-x-auto pb-4 custom-scrollbar mb-8">
+                <button onclick="filterPlaces('all')" class="place-filter-btn active px-5 py-2.5 rounded-xl bg-cmRed text-white text-sm font-medium transition-all shadow-sm whitespace-nowrap">ทั้งหมด</button>
+                <button onclick="filterPlaces('nature')" class="place-filter-btn px-5 py-2.5 rounded-xl bg-white text-gray-600 hover:bg-cmPeach hover:text-cmRed text-sm font-medium transition-all shadow-sm border border-gray-100 whitespace-nowrap">ธรรมชาติ & ดอย</button>
+                <button onclick="filterPlaces('culture')" class="place-filter-btn px-5 py-2.5 rounded-xl bg-white text-gray-600 hover:bg-cmPeach hover:text-cmRed text-sm font-medium transition-all shadow-sm border border-gray-100 whitespace-nowrap">วัด & ประวัติศาสตร์</button>
+                <button onclick="filterPlaces('cafe')" class="place-filter-btn px-5 py-2.5 rounded-xl bg-white text-gray-600 hover:bg-cmPeach hover:text-cmRed text-sm font-medium transition-all shadow-sm border border-gray-100 whitespace-nowrap">ช้อปปิ้ง & คาเฟ่</button>
+            </div>
+
+            <!-- Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Place Card 1: Wat Phra That Doi Suthep -->
+                <div class="place-card bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-orange-100/50 flex flex-col" data-category="culture">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1598970434795-0c54fe7c0648?auto=format&fit=crop&q=80&w=800" alt="วัดพระธาตุดอยสุเทพ" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500" loading="lazy" onerror="this.src='https://placehold.co/800x600/C23B22/FFFFFF?text=วัดพระธาตุดอยสุเทพ'">
+                        <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-cmRedDark font-semibold text-xs px-3 py-1.5 rounded-full shadow-sm">วัด & ประวัติศาสตร์</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow justify-between">
+                        <div>
+                            <div class="flex items-center text-amber-500 text-sm mb-2">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 font-bold text-gray-700">4.9</span>
+                                <span class="text-gray-400 ml-2">(อ.เมืองเชียงใหม่)</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">วัดพระธาตุดอยสุเทพราชวรวิหาร</h3>
+                            <p class="text-gray-600 text-sm line-clamp-3 leading-relaxed">วัดคู่บ้านคู่เมืองเชียงใหม่ ประดิษฐานพระบรมสารีริกธาตุ บนยอดดอยสุเทพ มองเห็นทิวทัศน์เมืองเชียงใหม่ได้รอบทิศทาง</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-gray-100 space-y-3">
+                            <div class="flex items-center justify-between text-xs text-gray-500">
+                                <span class="text-cmRed font-medium bg-cmPeach px-3 py-1 rounded-lg"><i class="fa-regular fa-clock mr-1"></i>06:00 - 20:00 น.</span>
+                                <button onclick="openModal('วัดพระธาตุดอยสุเทพ', 'วัดสำคัญคู่บ้านคู่เมืองเชียงใหม่ ขึ้นชื่อเรื่องความงดงามของพระธาตุทองคำและวิวพาโนรามาทั่วเมืองเชียงใหม่ มีบันไดนาค 306 ขั้น หรือสามารถขึ้นกระเช้าไฟฟ้าได้', 'https://images.unsplash.com/photo-1598970434795-0c54fe7c0648?auto=format&fit=crop&q=80&w=800', 'https://maps.google.com/?q=Wat+Phra+That+Doi+Suthep')" class="text-cmRed hover:text-cmRedDark font-semibold text-sm flex items-center">
+                                    รายละเอียด <i class="fa-solid fa-chevron-right ml-1 text-xs"></i>
+                                </button>
+                            </div>
+                            <a href="https://maps.google.com/?q=Wat+Phra+That+Doi+Suthep" target="_blank" rel="noopener font-medium" class="w-full py-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-semibold flex items-center justify-center transition-colors">
+                                <i class="fa-solid fa-diamond-turn-right text-emerald-600 mr-2 text-sm"></i> นำทางด้วย GPS (Google Maps)
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Place Card 2: Doi Inthanon -->
+                <div class="place-card bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-orange-100/50 flex flex-col" data-category="nature">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1510312305653-8ed496efae75?auto=format&fit=crop&q=80&w=800" alt="ดอยอินทนนท์" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500" loading="lazy" onerror="this.src='https://placehold.co/800x600/C23B22/FFFFFF?text=ดอยอินทนนท์'">
+                        <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-emerald-700 font-semibold text-xs px-3 py-1.5 rounded-full shadow-sm">ธรรมชาติ & ดอย</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow justify-between">
+                        <div>
+                            <div class="flex items-center text-amber-500 text-sm mb-2">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 font-bold text-gray-700">4.8</span>
+                                <span class="text-gray-400 ml-2">(อ.จอมทอง)</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">อุทยานแห่งชาติดอยอินทนนท์</h3>
+                            <p class="text-gray-600 text-sm line-clamp-3 leading-relaxed">ยอดเขาที่สูงที่สุดในประเทศไทย สัมผัสอากาศหนาวเย็นตลอดปี เดินป่าศึกษาธรรมชาติกิ่วแม่ปาน และสักการะพระมหาธาตุ</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-gray-100 space-y-3">
+                            <div class="flex items-center justify-between text-xs text-gray-500">
+                                <span class="text-cmRed font-medium bg-cmPeach px-3 py-1 rounded-lg"><i class="fa-regular fa-clock mr-1"></i>05:00 - 18:00 น.</span>
+                                <button onclick="openModal('อุทยานแห่งชาติดอยอินทนนท์', 'จุดสูงสุดของเมืองไทย ไฮไลท์คือการชมทะเลหมอกยามเช้าที่กิ่วแม่ปาน ชมพระมหาธาตุนภเมทนีดลและพระมหาธาตุนภพลภูมิสิริ รวมถึงสถานีเกษตรหลวงอินทนนท์', 'https://images.unsplash.com/photo-1510312305653-8ed496efae75?auto=format&fit=crop&q=80&w=800', 'https://maps.google.com/?q=Doi+Inthanon+National+Park')" class="text-cmRed hover:text-cmRedDark font-semibold text-sm flex items-center">
+                                    รายละเอียด <i class="fa-solid fa-chevron-right ml-1 text-xs"></i>
+                                </button>
+                            </div>
+                            <a href="https://maps.google.com/?q=Doi+Inthanon+National+Park" target="_blank" rel="noopener" class="w-full py-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-semibold flex items-center justify-center transition-colors">
+                                <i class="fa-solid fa-diamond-turn-right text-emerald-600 mr-2 text-sm"></i> นำทางด้วย GPS (Google Maps)
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Place Card 3: Nimman & One Nimman -->
+                <div class="place-card bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-orange-100/50 flex flex-col" data-category="cafe">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800" alt="ถนนนิมมานเฮมินทร์" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500" loading="lazy" onerror="this.src='https://placehold.co/800x600/C23B22/FFFFFF?text=ถนนนิมมาน'">
+                        <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-purple-700 font-semibold text-xs px-3 py-1.5 rounded-full shadow-sm">ช้อปปิ้ง & คาเฟ่</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow justify-between">
+                        <div>
+                            <div class="flex items-center text-amber-500 text-sm mb-2">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 font-bold text-gray-700">4.7</span>
+                                <span class="text-gray-400 ml-2">(อ.เมืองเชียงใหม่)</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">ถนนนิมมานเฮมินทร์ & One Nimman</h3>
+                            <p class="text-gray-600 text-sm line-clamp-3 leading-relaxed">ย่านสุดฮิปศูนย์รวมคาเฟ่เก๋ๆ ร้านอาหาร ศิลปะ และแหล่งช้อปปิ้งสไตล์ไลฟ์สไตล์ ดีไซน์สถาปัตยกรรมสวยงาม</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-gray-100 space-y-3">
+                            <div class="flex items-center justify-between text-xs text-gray-500">
+                                <span class="text-cmRed font-medium bg-cmPeach px-3 py-1 rounded-lg"><i class="fa-regular fa-clock mr-1"></i>เปิดตลอดวัน</span>
+                                <button onclick="openModal('ถนนนิมมานเฮมินทร์ & One Nimman', 'ย่านท่องเที่ยวสตรีทไลฟ์สุดฮิต เหมาะสำหรับการเดินเล่น จิบกาแฟร้านดัง ช้อปปิ้งสินค้าทำมือ สินค้าดีไซน์ และถ่ายรูปสวยๆ ในโครงการ One Nimman สถาปัตยกรรมอิฐแดงสไตล์ยุโรปผสมล้านนา', 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&q=80&w=800', 'https://maps.google.com/?q=One+Nimman')" class="text-cmRed hover:text-cmRedDark font-semibold text-sm flex items-center">
+                                    รายละเอียด <i class="fa-solid fa-chevron-right ml-1 text-xs"></i>
+                                </button>
+                            </div>
+                            <a href="https://maps.google.com/?q=One+Nimman" target="_blank" rel="noopener" class="w-full py-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-semibold flex items-center justify-center transition-colors">
+                                <i class="fa-solid fa-diamond-turn-right text-emerald-600 mr-2 text-sm"></i> นำทางด้วย GPS (Google Maps)
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Place Card 4: Mae Kampong -->
+                <div class="place-card bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-orange-100/50 flex flex-col" data-category="nature">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800" alt="หมู่บ้านแม่กำปอง" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500" loading="lazy" onerror="this.src='https://placehold.co/800x600/C23B22/FFFFFF?text=หมู่บ้านแม่กำปอง'">
+                        <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-emerald-700 font-semibold text-xs px-3 py-1.5 rounded-full shadow-sm">ธรรมชาติ & วิถีชีวิต</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow justify-between">
+                        <div>
+                            <div class="flex items-center text-amber-500 text-sm mb-2">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 font-bold text-gray-700">4.8</span>
+                                <span class="text-gray-400 ml-2">(อ.แม่ออน)</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">หมู่บ้านแม่กำปอง</h3>
+                            <p class="text-gray-600 text-sm line-clamp-3 leading-relaxed">หมู่บ้านเล็กๆ กลางหุบเขา อากาศเย็นสบายตลอดปี โอบล้อมด้วยป่าไม้ ลำธาร และวิถีชีวิตสโลว์ไลฟ์</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-gray-100 space-y-3">
+                            <div class="flex items-center justify-between text-xs text-gray-500">
+                                <span class="text-cmRed font-medium bg-cmPeach px-3 py-1 rounded-lg"><i class="fa-regular fa-clock mr-1"></i>เปิดตลอดวัน</span>
+                                <button onclick="openModal('หมู่บ้านแม่กำปอง', 'หมู่บ้านท่องเที่ยวเชิงอนุรักษ์ โดดเด่นด้วยอากาศที่บริสุทธิ์ ร้านกาแฟริมน้ำตก ร้านไส้อั่วแม่ปอน และโฮมสเตย์อันอบอุ่น', 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=800', 'https://maps.google.com/?q=Mae+Kampong+Village')" class="text-cmRed hover:text-cmRedDark font-semibold text-sm flex items-center">
+                                    รายละเอียด <i class="fa-solid fa-chevron-right ml-1 text-xs"></i>
+                                </button>
+                            </div>
+                            <a href="https://maps.google.com/?q=Mae+Kampong+Village" target="_blank" rel="noopener" class="w-full py-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-semibold flex items-center justify-center transition-colors">
+                                <i class="fa-solid fa-diamond-turn-right text-emerald-600 mr-2 text-sm"></i> นำทางด้วย GPS (Google Maps)
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Place Card 5: Tha Phae Gate -->
+                <div class="place-card bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-orange-100/50 flex flex-col" data-category="culture">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&q=80&w=800" alt="ประตูท่าแพ" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500" loading="lazy" onerror="this.src='https://placehold.co/800x600/C23B22/FFFFFF?text=ประตูท่าแพ'">
+                        <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-cmRedDark font-semibold text-xs px-3 py-1.5 rounded-full shadow-sm">วัด & ประวัติศาสตร์</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow justify-between">
+                        <div>
+                            <div class="flex items-center text-amber-500 text-sm mb-2">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 font-bold text-gray-700">4.6</span>
+                                <span class="text-gray-400 ml-2">(อ.เมืองเชียงใหม่)</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">ประตูท่าแพ & ลานกิจกรรม</h3>
+                            <p class="text-gray-600 text-sm line-clamp-3 leading-relaxed">แลนด์มาร์กสำคัญของเชียงใหม่ อิฐโบราณสีส้มอิฐ จุดถ่ายรูปยอดฮิต และจุดเริ่มต้นถนนคนเดินวันอาทิตย์</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-gray-100 space-y-3">
+                            <div class="flex items-center justify-between text-xs text-gray-500">
+                                <span class="text-cmRed font-medium bg-cmPeach px-3 py-1 rounded-lg"><i class="fa-regular fa-clock mr-1"></i>เปิดตลอดวัน</span>
+                                <button onclick="openModal('ประตูท่าแพ', 'ประตูเมืองโบราณทิศตะวันออก สร้างด้วยอิฐสีส้มอันเป็นเอกลักษณ์ ปัจจุบันเป็นลานจัดกิจกรรม เทศกาลสำคัญ และเป็นจุดเริ่มต้นของถนนคนเดินท่าแพวันอาทิตย์', 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&q=80&w=800', 'https://maps.google.com/?q=Tha+Phae+Gate')" class="text-cmRed hover:text-cmRedDark font-semibold text-sm flex items-center">
+                                    รายละเอียด <i class="fa-solid fa-chevron-right ml-1 text-xs"></i>
+                                </button>
+                            </div>
+                            <a href="https://maps.google.com/?q=Tha+Phae+Gate" target="_blank" rel="noopener" class="w-full py-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-semibold flex items-center justify-center transition-colors">
+                                <i class="fa-solid fa-diamond-turn-right text-emerald-600 mr-2 text-sm"></i> นำทางด้วย GPS (Google Maps)
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Place Card 6: Chiang Dao -->
+                <div class="place-card bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-orange-100/50 flex flex-col" data-category="nature">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=800" alt="ดอยหลวงเชียงดาว" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-500" loading="lazy" onerror="this.src='https://placehold.co/800x600/C23B22/FFFFFF?text=ดอยหลวงเชียงดาว'">
+                        <span class="absolute top-4 left-4 bg-white/90 backdrop-blur-md text-emerald-700 font-semibold text-xs px-3 py-1.5 rounded-full shadow-sm">ธรรมชาติ & ดอย</span>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow justify-between">
+                        <div>
+                            <div class="flex items-center text-amber-500 text-sm mb-2">
+                                <i class="fa-solid fa-star"></i><span class="ml-1 font-bold text-gray-700">4.9</span>
+                                <span class="text-gray-400 ml-2">(อ.เชียงดาว)</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-900 mb-2">ดอยหลวงเชียงดาว & บ้านระเบียงดาว</h3>
+                            <p class="text-gray-600 text-sm line-clamp-3 leading-relaxed">เทือกเขาหินปูนที่สูงอันดับ 3 ของไทย วิวภูเขาอลังการระดับโลก เหมาะสำหรับสายแคมป์ปิ้งพักผ่อนนอนดูดาว</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-gray-100 space-y-3">
+                            <div class="flex items-center justify-between text-xs text-gray-500">
+                                <span class="text-cmRed font-medium bg-cmPeach px-3 py-1 rounded-lg"><i class="fa-regular fa-clock mr-1"></i>เปิดตามฤดูกาล</span>
+                                <button onclick="openModal('ดอยหลวงเชียงดาว', 'ยอดเขาหินปูนสูงใหญ่ตระการตา ได้รับการยกย่องเป็นพื้นที่สงวนชีวมณฑลโดย UNESCO สัมผัสความเงียบสงบ ชมดาวยามค่ำคืนที่บ้านระเบียงดาว', 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=800', 'https://maps.google.com/?q=Doi+Luang+Chiang+Dao')" class="text-cmRed hover:text-cmRedDark font-semibold text-sm flex items-center">
+                                    รายละเอียด <i class="fa-solid fa-chevron-right ml-1 text-xs"></i>
+                                </button>
+                            </div>
+                            <a href="https://maps.google.com/?q=Doi+Luang+Chiang+Dao" target="_blank" rel="noopener" class="w-full py-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 text-xs font-semibold flex items-center justify-center transition-colors">
+                                <i class="fa-solid fa-diamond-turn-right text-emerald-600 mr-2 text-sm"></i> นำทางด้วย GPS (Google Maps)
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="food" class="bg-gradient-to-b from-cmPeach/60 to-white py-16 border-y border-orange-100/60 scroll-mt-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <span class="text-cmRed font-semibold tracking-wider text-sm uppercase">Lanna Cuisine</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mt-1">กิ๋นหอมตอมม่วน : อาหารลำเมืองเชียงใหม่</h2>
+                    <p class="text-gray-600 mt-3">ลิ้มลองรสชาติอาหารเหนือแท้ๆ ที่มีเอกลักษณ์ วัตถุดิบสดใหม่ และเครื่องเทศหอมกรุ่น</p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Food Item 1 -->
+                    <div class="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition-all border border-orange-100 group">
+                        <div class="relative h-44 rounded-xl overflow-hidden mb-4">
+                            <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&q=80&w=600" alt="ข้าวซอยไก่" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" onerror="this.src='https://placehold.co/600x400/E05A47/FFFFFF?text=ข้าวซอย'">
+                            <span class="absolute bottom-2 right-2 bg-cmRed text-white text-xs px-2.5 py-1 rounded-md font-medium">เมนูยอดฮิต</span>
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 group-hover:text-cmRed transition-colors">ข้าวซอยไก่ / เนื้อ</h3>
+                        <p class="text-gray-500 text-sm mt-1">เส้นบะหมี่นุ่มในน้ำแกงกะทิเข้มข้น รสชาติกลมกล่อม เสิร์ฟพร้อมเส้นกรอบ หอมแดง และมะนาว</p>
+                        <div class="mt-4 pt-3 border-t border-gray-100 text-xs text-cmRedDark font-medium">
+                            <i class="fa-solid fa-utensils mr-1"></i> ร้านแนะนำ: ข้าวซอยนิมมาน / ข้าวซอยคุณยาย
+                        </div>
+                    </div>
+
+                    <!-- Food Item 2 -->
+                    <div class="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition-all border border-orange-100 group">
+                        <div class="relative h-44 rounded-xl overflow-hidden mb-4">
+                            <img src="https://images.unsplash.com/photo-1541832676-9b763b0239ab?auto=format&fit=crop&q=80&w=600" alt="ขนมจีนน้ำเงี้ยว" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" onerror="this.src='https://placehold.co/600x400/E05A47/FFFFFF?text=ขนมจีนน้ำเงี้ยว'">
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 group-hover:text-cmRed transition-colors">ขนมจีนน้ำเงี้ยว</h3>
+                        <p class="text-gray-500 text-sm mt-1">น้ำซุปกระดูกหมูต้มกับดอกงิ้ว ถั่วเน่า และมะเขือเทศ รสชาติเปรี้ยวเค็มเผ็ดลงตัว</p>
+                        <div class="mt-4 pt-3 border-t border-gray-100 text-xs text-cmRedDark font-medium">
+                            <i class="fa-solid fa-utensils mr-1"></i> ร้านแนะนำ: ขนมจีนน้ำเงี้ยวป้าสุข / ร้านเฮือนเพ็ญ
+                        </div>
+                    </div>
+
+                    <!-- Food Item 3 -->
+                    <div class="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition-all border border-orange-100 group">
+                        <div class="relative h-44 rounded-xl overflow-hidden mb-4">
+                            <img src="https://images.unsplash.com/photo-1626777552726-4a6b54c97e46?auto=format&fit=crop&q=80&w=600" alt="ไส้อั่ว & น้ำพริกหนุ่ม" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" onerror="this.src='https://placehold.co/600x400/E05A47/FFFFFF?text=ไส้อั่ว+น้ำพริกหนุ่ม'">
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 group-hover:text-cmRed transition-colors">ไส้อั่ว & น้ำพริกหนุ่ม</h3>
+                        <p class="text-gray-500 text-sm mt-1">ไส้อั่วสมุนไพรหอมกรุ่น ทานคู่กับน้ำพริกหนุ่มรสเผ็ดกำลังดี และแคบหมูกรอบๆ</p>
+                        <div class="mt-4 pt-3 border-t border-gray-100 text-xs text-cmRedDark font-medium">
+                            <i class="fa-solid fa-utensils mr-1"></i> ร้านแนะนำ: ดำรงค์ ตลาดวโรรส (กาดหลวง)
+                        </div>
+                    </div>
+
+                    <!-- Food Item 4 -->
+                    <div class="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition-all border border-orange-100 group">
+                        <div class="relative h-44 rounded-xl overflow-hidden mb-4">
+                            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&q=80&w=600" alt="ขันโตกพื้นเมือง" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" onerror="this.src='https://placehold.co/600x400/E05A47/FFFFFF?text=ชุดขันโตก'">
+                        </div>
+                        <h3 class="text-lg font-bold text-gray-900 group-hover:text-cmRed transition-colors">ชุดขันโตกพื้นเมือง</h3>
+                        <p class="text-gray-500 text-sm mt-1">เซ็ตอาหารเหนือแบบประเพณี มีแกงฮังเล ลาบหมูคั่ว แกงอ่อม พร้อมข้าวเหนียวร้อนๆ</p>
+                        <div class="mt-4 pt-3 border-t border-gray-100 text-xs text-cmRedDark font-medium">
+                            <i class="fa-solid fa-utensils mr-1"></i> ร้านแนะนำ: คุ้มขันโตก / เฮือนใจ๋ยอง
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="seasons" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-cmRed font-semibold tracking-wider text-sm uppercase"><i class="fa-solid fa-plane-departure mr-1"></i> Travel Guide</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mt-1">ฤดูกาลท่องเที่ยว & การเดินทางมาเชียงใหม่</h2>
+                <p class="text-gray-600 mt-2">วางแผนการเดินทางและเลือกช่วงเวลาเที่ยวที่ตรงใจที่สุดตลอด 365 วัน</p>
+            </div>
+
+            <!-- Season Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <!-- Winter -->
+                <div class="bg-gradient-to-br from-blue-900 to-indigo-900 text-white rounded-3xl p-6 shadow-lg border border-blue-700/50 relative overflow-hidden">
+                    <div class="absolute -right-4 -bottom-4 text-blue-400/20 text-8xl"><i class="fa-solid fa-snowflake"></i></div>
+                    <span class="px-3 py-1 bg-blue-500/30 text-blue-200 border border-blue-400/30 rounded-full text-xs font-semibold">พ.ย. - ก.พ.</span>
+                    <h3 class="text-2xl font-bold mt-3 mb-2 text-blue-100"><i class="fa-solid fa-temperature-arrow-down text-blue-300 mr-2"></i>ฤดูหนาว (ไฮซีซั่น)</h3>
+                    <p class="text-blue-100/80 text-sm leading-relaxed mb-4">อากาศหนาวเย็น 10-20°C บนยอดดอยหนาวจัดถึงแม่กนิ้ง เหมาะสำหรับการรับชมทะเลหมอก ดอกนางพญาเสือโคร่ง (ซากุระเมืองไทย) และแคมป์ปิ้ง</p>
+                    <div class="text-xs bg-blue-950/60 p-3 rounded-xl border border-blue-800/60 text-blue-200">
+                        <strong>✨ ไฮไลท์:</strong> ดอยอินทนนท์, ขุนวาง, ดอยอ่างขาง, เทศกาลยี่เป็ง
+                    </div>
+                </div>
+
+                <!-- Rainy -->
+                <div class="bg-gradient-to-br from-emerald-900 to-teal-900 text-white rounded-3xl p-6 shadow-lg border border-emerald-700/50 relative overflow-hidden">
+                    <div class="absolute -right-4 -bottom-4 text-emerald-400/20 text-8xl"><i class="fa-solid fa-cloud-showers-heavy"></i></div>
+                    <span class="px-3 py-1 bg-emerald-500/30 text-emerald-200 border border-emerald-400/30 rounded-full text-xs font-semibold">มิ.ย. - ต.ค.</span>
+                    <h3 class="text-2xl font-bold mt-3 mb-2 text-emerald-100"><i class="fa-solid fa-seedling text-emerald-300 mr-2"></i>ฤดูฝน (กรีนซีซั่น)</h3>
+                    <p class="text-emerald-100/80 text-sm leading-relaxed mb-4">ป่าไม้เขียวขุ่นขจี สดชื่น หมอกหลังฝนสวยงาม คนไม่แออัด ค่าที่พักราคาถูก เหมาะสำหรับสายชิลล์ นั่งคาเฟ่ธรรมชาติ และชมนาขั้นบันได</p>
+                    <div class="text-xs bg-emerald-950/60 p-3 rounded-xl border border-emerald-800/60 text-emerald-200">
+                        <strong>✨ ไฮไลท์:</strong> แม่แอบ, นาขั้นบันไดป่าบงเปียง, แม่กำปอง
+                    </div>
+                </div>
+
+                <!-- Summer -->
+                <div class="bg-gradient-to-br from-amber-900 to-orange-950 text-white rounded-3xl p-6 shadow-lg border border-amber-700/50 relative overflow-hidden">
+                    <div class="absolute -right-4 -bottom-4 text-amber-400/20 text-8xl"><i class="fa-solid fa-sun"></i></div>
+                    <span class="px-3 py-1 bg-amber-500/30 text-amber-200 border border-amber-400/30 rounded-full text-xs font-semibold">มี.ค. - พ.ค.</span>
+                    <h3 class="text-2xl font-bold mt-3 mb-2 text-amber-100"><i class="fa-solid fa-umbrella-beach text-amber-300 mr-2"></i>ฤดูร้อน & สงกรานต์</h3>
+                    <p class="text-amber-100/80 text-sm leading-relaxed mb-4">อากาศอบอุ่นถึงร้อน คึกคักเป็นพิเศษในเดือนเมษายนกับงานสงกรานต์รอบคูเมือง และเป็นช่วงผลไม้เมืองเหนือออกผลล้นตลาด</p>
+                    <div class="text-xs bg-amber-950/60 p-3 rounded-xl border border-amber-800/60 text-amber-200">
+                        <strong>✨ ไฮไลท์:</strong> เล่นน้ำสงกรานต์รอบคูเมือง, ล่องแพแม่แตง, คาเฟ่ห้องแอร์
+                    </div>
+                </div>
+            </div>
+
+            <!-- Transportation Grid -->
+            <div class="bg-white rounded-3xl p-6 sm:p-8 border border-orange-100 shadow-md">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+                    <i class="fa-solid fa-route text-cmRed mr-3"></i> วิธีการเดินทางมาเชียงใหม่ & การเดินทางในเมือง
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="p-4 rounded-2xl bg-orange-50/50 border border-orange-100">
+                        <div class="w-10 h-10 rounded-xl bg-cmRed text-white flex items-center justify-center font-bold text-lg mb-3">
+                            <i class="fa-solid fa-plane"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-900 mb-1">เครื่องบิน</h4>
+                        <p class="text-xs text-gray-600 leading-relaxed">ลงท่าอากาศยานนานาชาติเชียงใหม่ (CNX) ห่างจากตัวเมืองเพียง 10-15 นาที มีแท็กซี่และรถสองแถวให้บริการ</p>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-orange-50/50 border border-orange-100">
+                        <div class="w-10 h-10 rounded-xl bg-cmRed text-white flex items-center justify-center font-bold text-lg mb-3">
+                            <i class="fa-solid fa-train"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-900 mb-1">รถไฟ (CNR)</h4>
+                        <p class="text-xs text-gray-600 leading-relaxed">นั่งรถไฟด่วนพิเศษตู้นอน (อุตราวิถี) จากกรุงเทพอภิวัฒน์ถึงสถานีรถไฟเชียงใหม่ สัมผัสบรรยากาศตื่นรับวิวเช้าบนรถไฟ</p>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-orange-50/50 border border-orange-100">
+                        <div class="w-10 h-10 rounded-xl bg-cmRed text-white flex items-center justify-center font-bold text-lg mb-3">
+                            <i class="fa-solid fa-bus"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-900 mb-1">รถทัวร์ประจำทาง</h4>
+                        <p class="text-xs text-gray-600 leading-relaxed">ขึ้นที่สถานีขนส่งหมอชิต 2 ลงสถานีขนส่งเชียงใหม่ (อาเขต) ใช้เวลาเดินทางประมาณ 9-10 ชั่วโมง มีรอบปรับอากาศให้เลือกหลากหลาย</p>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-orange-50/50 border border-orange-100">
+                        <div class="w-10 h-10 rounded-xl bg-cmRed text-white flex items-center justify-center font-bold text-lg mb-3">
+                            <i class="fa-solid fa-van-shuttle"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-900 mb-1">การเดินทางในตัวเมือง</h4>
+                        <p class="text-xs text-gray-600 leading-relaxed">รถสองแถวแดง (รถแดง), Grab / Bolt, เช่ามอเตอร์ไซค์ หรือเช่ารถยนต์ขับเองเพื่อความสะดวกในการขึ้นดอย</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="festivals" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-10">
+                <div>
+                    <span class="text-cmRed font-semibold tracking-wider text-sm uppercase">Events & Traditions</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mt-1">เทศกาล & ประเพณีทรงคุณค่า</h2>
+                </div>
+                <p class="text-gray-600 mt-2 md:mt-0 max-w-md">สัมผัสวิถีชีวิตและวัฒนธรรมล้านนาที่สืบทอดกันมาอย่างยาวนานตลอดทั้งปี</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Festival 1 -->
+                <div class="bg-gradient-to-br from-cmDark to-gray-900 text-white rounded-3xl p-8 relative overflow-hidden shadow-lg flex flex-col justify-between">
+                    <div class="absolute -right-8 -bottom-8 opacity-10 text-cmOrange">
+                        <i class="fa-solid fa-cloud-moon text-9xl"></i>
+                    </div>
+                    <div>
+                        <span class="inline-block px-3 py-1 bg-cmOrange/30 text-orange-200 border border-cmOrange/40 rounded-full text-xs font-semibold mb-4">เดือนพฤศจิกายน</span>
+                        <h3 class="text-2xl font-bold mb-3 text-orange-100">ประเพณียี่เป็ง (ยี่เป็งเชียงใหม่)</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed mb-6">เทศกาลลอยโคมยี่เป็งสุดตระการตา ทั่วเมืองจะประดับประดาด้วยโคมแขวน ลอยกระทงลงแม่น้ำปิง และการปล่อยโคมลอยสู่ท้องฟ้ามืดมิด</p>
+                    </div>
+                    <div class="pt-4 border-t border-gray-700/60 flex items-center justify-between text-xs text-orange-200">
+                        <span><i class="fa-solid fa-location-dot mr-1"></i> รอบเมืองเก่า & สะพานนวรัฐ</span>
+                    </div>
+                </div>
+
+                <!-- Festival 2 -->
+                <div class="bg-gradient-to-br from-cmRedDark to-cmRed text-white rounded-3xl p-8 relative overflow-hidden shadow-lg flex flex-col justify-between">
+                    <div class="absolute -right-8 -bottom-8 opacity-15 text-white">
+                        <i class="fa-solid fa-water text-9xl"></i>
+                    </div>
+                    <div>
+                        <span class="inline-block px-3 py-1 bg-white/20 text-white border border-white/30 rounded-full text-xs font-semibold mb-4">13 - 15 เมษายน</span>
+                        <h3 class="text-2xl font-bold mb-3">ป๋าเวณีปี๋ใหม่เมือง (สงกรานต์)</h3>
+                        <p class="text-gray-100 text-sm leading-relaxed mb-6">สรงน้ำพระพุทธสิหิงค์ ขนทรายเข้าวัด สรงน้ำพ่อเมือง และเล่นน้ำสงกรานต์รอบคูเมืองเชียงใหม่ที่คึกคักและมีเอกลักษณ์ที่สุด</p>
+                    </div>
+                    <div class="pt-4 border-t border-white/20 flex items-center justify-between text-xs text-orange-100">
+                        <span><i class="fa-solid fa-location-dot mr-1"></i> รอบคูเมือง & วัดพระสิงห์</span>
+                    </div>
+                </div>
+
+                <!-- Festival 3 -->
+                <div class="bg-gradient-to-br from-orange-600 to-amber-600 text-white rounded-3xl p-8 relative overflow-hidden shadow-lg flex flex-col justify-between">
+                    <div class="absolute -right-8 -bottom-8 opacity-15 text-white">
+                        <i class="fa-solid fa-fan text-9xl"></i>
+                    </div>
+                    <div>
+                        <span class="inline-block px-3 py-1 bg-white/20 text-white border border-white/30 rounded-full text-xs font-semibold mb-4">เดือนกุมภาพันธ์</span>
+                        <h3 class="text-2xl font-bold mb-3">มหกรรมไม้ดอกไม้ประดับ</h3>
+                        <p class="text-orange-50 text-sm leading-relaxed mb-6">ชมขบวนรถบุปผชาติประดับด้วยดอกไม้นานาพันธุ์อันตระการตา การจัดสวนดอกไม้เมืองหนาว ณ สวนสาธารณะหนองบวกหาด</p>
+                    </div>
+                    <div class="pt-4 border-t border-white/20 flex items-center justify-between text-xs text-orange-100">
+                        <span><i class="fa-solid fa-location-dot mr-1"></i> สวนสาธารณะหนองบวกหาด</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="plan" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-24">
+            <div class="bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-orange-100">
+                <div class="text-center max-w-2xl mx-auto mb-10">
+                    <span class="text-cmRed font-semibold tracking-wider text-sm uppercase"><i class="fa-solid fa-map-marked-alt mr-1"></i> Complete Itineraries</span>
+                    <h2 class="text-3xl font-bold text-gray-900 mt-1">คู่มือวางแผนแพลนเที่ยวเชียงใหม่ 3 วัน ถึง 1 สัปดาห์</h2>
+                    <p class="text-gray-600 mt-2">เลือกจำนวนวันที่คุณต้องการเที่ยว เพื่อดูโปรแกรมจัดทริปฉบับสมบูรณ์ที่ครอบคลุมทั่วเมืองเชียงใหม่</p>
+                </div>
+
+                <!-- Tab Buttons for 3D2N, 5D4N, 7D6N -->
+                <div class="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8">
+                    <button onclick="switchPlan('3d2n')" id="btn-3d2n" class="plan-tab-btn px-5 py-3 rounded-2xl font-semibold text-sm transition-all bg-cmRed text-white shadow-md shadow-cmRed/20">
+                        <i class="fa-solid fa-calendar-day mr-2"></i> 3 วัน 2 คืน (คลาสสิกตัวเมือง & สุเทพ)
+                    </button>
+                    <button onclick="switchPlan('5d4n')" id="btn-5d4n" class="plan-tab-btn px-5 py-3 rounded-2xl font-semibold text-sm transition-all bg-gray-100 text-gray-600 hover:bg-cmPeach hover:text-cmRed">
+                        <i class="fa-solid fa-calendar-week mr-2"></i> 5 วัน 4 คืน (ยอดดอย & แม่กำปอง)
+                    </button>
+                    <button onclick="switchPlan('7d6n')" id="btn-7d6n" class="plan-tab-btn px-5 py-3 rounded-2xl font-semibold text-sm transition-all bg-gray-100 text-gray-600 hover:bg-cmPeach hover:text-cmRed">
+                        <i class="fa-solid fa-earth-asia mr-2"></i> 7 วัน 6 คืน (แกรนด์ทัวร์ทั่วเชียงใหม่)
+                    </button>
+                </div>
+
+                <!-- Plan Content Container -->
+                <div class="bg-cmPeach/40 rounded-2xl p-6 sm:p-8 border border-orange-100">
+                    
+                    <!-- PLAN 1: 3 Days 2 Nights -->
+                    <div id="plan-3d2n" class="plan-content space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-cmRed text-white font-bold flex items-center justify-center shadow-md">D1</div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg">วันแรก : ไหว้พระเมืองเก่า & ถนนคนเดิน</h4>
+                                <p class="text-gray-600 text-sm mt-1">เช้าลงเครื่อง/เดินทางถึง -> ไหว้พระวัดพระสิงห์ และวัดเจดีย์หลวง -> ช่วงบ่ายจิบกาแฟย่านนิมมาน -> เย็นเดินถ่ายรูปประตูท่าแพ และเดินเล่นถนนคนเดิน (วันเสาร์/อาทิตย์) หรือไนท์บาซาร์</p>
+                            </div>
+                        </div>
+                        <div class="border-t border-orange-200/60 pt-4 flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-cmOrange text-white font-bold flex items-center justify-center shadow-md">D2</div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg">วันที่สอง : ขึ้นดอยสุเทพ & ชมคาเฟ่ธรรมชาติ</h4>
+                                <p class="text-gray-600 text-sm mt-1">เช้าขึ้นวัดพระธาตุดอยสุเทพ -> แวะหมู่บ้านม้งดอยปุย -> บ่ายลงมาเที่ยววัดอุโมงค์ (สวนพุทธธรรม) -> ค่ำรับประทานอาหารเหนือขันโตกชมการแสดงพื้นเมือง</p>
+                            </div>
+                        </div>
+                        <div class="border-t border-orange-200/60 pt-4 flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-amber-600 text-white font-bold flex items-center justify-center shadow-md">D3</div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg">วันที่สาม : ช้อปของฝากกาดหลวง & เดินทางกลับ</h4>
+                                <p class="text-gray-600 text-sm mt-1">เช้าซื้อแคบหมู น้ำพริกหนุ่ม ไส้อั่ว ที่ตลาดวโรรส (กาดหลวง) -> แวะคาเฟ่ริมแม่น้ำปิง -> เดินทางกลับโดยสวัสดิภาพ</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PLAN 2: 5 Days 4 Nights -->
+                    <div id="plan-5d4n" class="plan-content hidden space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-emerald-600 text-white font-bold flex items-center justify-center shadow-md">D1-2</div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg">วันแรก - วันที่สอง : ตัวเมืองเชียงใหม่ & แม่กำปอง</h4>
+                                <p class="text-gray-600 text-sm mt-1"><strong>D1:</strong> เช็คอินตัวเมือง -> คาเฟ่นิมมาน -> ถนนคนเดินท่าแพ <br><strong>D2:</strong> มุ่งสู่ อ.แม่ออน -> เที่ยวหมู่บ้านแม่กำปอง -> จิบกาแฟระเบียงวิว -> พักโฮมสเตย์สัมผัสอากาศเย็นริมลำธาร</p>
+                            </div>
+                        </div>
+                        <div class="border-t border-orange-200/60 pt-4 flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-teal-600 text-white font-bold flex items-center justify-center shadow-md">D3-4</div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg">วันที่สาม - วันที่สี่ : พิชิตยอดดอยอินทนนท์ & แม่แตง</h4>
+                                <p class="text-gray-600 text-sm mt-1"><strong>D3:</strong> เดินทางสู่อุทยานแห่งชาติดอยอินทนนท์ -> ชมทะเลหมอกกิ่วแม่ปาน -> สักการะพระมหาธาตุ -> พักเมืองจอมทอง หรือตัวเมือง <br><strong>D4:</strong> มุ่งหน้าสู่ อ.แม่แตง -> ล่องแพยาง หรือขี่ช้างชมธรรมชาติ -> พักรีสอร์ทกลางป่าแม่แตง</p>
+                            </div>
+                        </div>
+                        <div class="border-t border-orange-200/60 pt-4 flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-indigo-600 text-white font-bold flex items-center justify-center shadow-md">D5</div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg">วันที่ห้า : ซื้อของฝากกาดหลวง & สรุปทริป</h4>
+                                <p class="text-gray-600 text-sm mt-1">เดินทางกลับเข้าตัวเมือง -> แวะซื้อของฝากไส้อั่ว แคบหมู ตลาดวโรรส -> เดินทางกลับสนามบิน/สถานีรถไฟ</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PLAN 3: 7 Days 6 Nights Grand Tour -->
+                    <div id="plan-7d6n" class="plan-content hidden space-y-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-purple-700 text-white font-bold flex items-center justify-center shadow-md">D1-2</div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg">วันที่ 1 - 2 : ตะลุยเมืองเก่า นิมมาน & ดอยสุเทพ</h4>
+                                <p class="text-gray-600 text-sm mt-1"><strong>D1:</strong> เช็คอินตัวเมือง -> ไหว้พระวัดเจดีย์หลวง วัดพระสิงห์ -> ถนนคนเดิน <br><strong>D2:</strong> ขึ้นดอยสุเทพ -> ดอยปุย -> คาเฟ่ริมคลองแม่ข่า (Otaru เชียงใหม่) -> ชิมข้าวซอยชื่อดัง</p>
+                            </div>
+                        </div>
+                        <div class="border-t border-orange-200/60 pt-4 flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-indigo-700 text-white font-bold flex items-center justify-center shadow-md">D3-4</div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg">วันที่ 3 - 4 : ดอยหลวงเชียงดาว & เมืองคอง</h4>
+                                <p class="text-gray-600 text-sm mt-1"><strong>D3:</strong> เดินทางสู่ อ.เชียงดาว -> ชมวิวเทือกเขาหินปูนที่บ้านระเบียงดาว -> นอนดูดาวคืนแรก <br><strong>D4:</strong> เที่ยวเมืองคอง หมู่บ้านกลางทุ่งนาโอบล้อมด้วยภูเขา -> สัมผัสวิถีชีวิตชาวบ้านเงียบสงบ</p>
+                            </div>
+                        </div>
+                        <div class="border-t border-orange-200/60 pt-4 flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-rose-700 text-white font-bold flex items-center justify-center shadow-md">D5-6</div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg">วันที่ 5 - 6 : แม่กำปอง & ยอดดอยอินทนนท์</h4>
+                                <p class="text-gray-600 text-sm mt-1"><strong>D5:</strong> เดินทางไปแม่กำปอง -> เดินป่าชมน้ำตก -> พักโฮมสเตย์แม่กำปอง <br><strong>D6:</strong> มุ่งหน้าสู่จุดสูงสุดเมืองไทย ดอยอินทนนท์ -> ชมเส้นทางศึกษาธรรมชาติกิ่วแม่ปาน -> สถานีเกษตรหลวงอินทนนท์</p>
+                            </div>
+                        </div>
+                        <div class="border-t border-orange-200/60 pt-4 flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-xl bg-amber-700 text-white font-bold flex items-center justify-center shadow-md">D7</div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 text-lg">วันที่ 7 : เก็บตกของฝากกาดหลวง & เดินทางกลับ</h4>
+                                <p class="text-gray-600 text-sm mt-1">กลับเข้าตัวเมืองเชียงใหม่ -> ซื้อของฝากของกินพื้นเมืองที่ตลาดวโรรส -> เดินทางกลับบ้านโดยสวัสดิภาพพร้อมความประทับใจ</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Interactive Checklist Widget -->
+                <div class="mt-10 bg-gray-50 rounded-2xl p-6 border border-gray-200">
+                    <h3 class="font-bold text-gray-900 text-lg mb-4 flex items-center">
+                        <i class="fa-solid fa-list-check text-cmRed mr-2"></i> เช็คลิสต์เตรียมตัวเที่ยวเชียงใหม่
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+                        <label class="flex items-center space-x-3 cursor-pointer p-2 rounded-lg hover:bg-white transition-colors">
+                            <input type="checkbox" class="w-5 h-5 accent-cmRed rounded">
+                            <span class="text-sm text-gray-700">เสื้อกันหนาว / เสื้อคลุม</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer p-2 rounded-lg hover:bg-white transition-colors">
+                            <input type="checkbox" class="w-5 h-5 accent-cmRed rounded">
+                            <span class="text-sm text-gray-700">กล้องถ่ายรูป / แบตสำรอง</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer p-2 rounded-lg hover:bg-white transition-colors">
+                            <input type="checkbox" class="w-5 h-5 accent-cmRed rounded">
+                            <span class="text-sm text-gray-700">รองเท้าผ้าใบเดินสบาย</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer p-2 rounded-lg hover:bg-white transition-colors">
+                            <input type="checkbox" class="w-5 h-5 accent-cmRed rounded">
+                            <span class="text-sm text-gray-700">ยาทากันยุง / ยาประจำตัว</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer p-2 rounded-lg hover:bg-white transition-colors">
+                            <input type="checkbox" class="w-5 h-5 accent-cmRed rounded">
+                            <span class="text-sm text-gray-700">ใบขับขี่ (หากเช่ารถขับเอง)</span>
+                        </label>
+                        <label class="flex items-center space-x-3 cursor-pointer p-2 rounded-lg hover:bg-white transition-colors">
+                            <input type="checkbox" class="w-5 h-5 accent-cmRed rounded">
+                            <span class="text-sm text-gray-700">จองที่พัก/รถเช่าล่วงหน้า</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-cmDark text-white pt-16 pb-12 border-t-4 border-cmRed">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 pb-12 border-b border-gray-800">
+                <!-- Col 1: About -->
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cmRedDark to-cmOrange flex items-center justify-center text-white">
+                            <i class="fa-solid fa-mountain-sun"></i>
+                        </div>
+                        <span class="text-lg font-bold text-white">หลงถิ่น กินเที่ยว</span>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        เว็บแนะนำข้อมูลการท่องเที่ยว อาหาร วัฒนธรรม แผนที่ GPS นำทาง และแพลนเที่ยวเชียงใหม่ 3-7 วัน สัมผัสความงามสไตล์ล้านนา
+                    </p>
+                </div>
+
+                <!-- Col 2: Quick Links -->
+                <div>
+                    <h4 class="text-white font-semibold mb-4 text-base border-l-2 border-cmRed pl-3">เมนูลัด</h4>
+                    <ul class="space-y-2.5 text-sm text-gray-400">
+                        <li><a href="#places" class="hover:text-cmOrange transition-colors"><i class="fa-solid fa-angle-right text-xs mr-2 text-cmRed"></i>สถานที่ท่องเที่ยว + GPS</a></li>
+                        <li><a href="#food" class="hover:text-cmOrange transition-colors"><i class="fa-solid fa-angle-right text-xs mr-2 text-cmRed"></i>อาหารเหนือรสเด็ด</a></li>
+                        <li><a href="#seasons" class="hover:text-cmOrange transition-colors"><i class="fa-solid fa-angle-right text-xs mr-2 text-cmRed"></i>ฤดูกาล & การเดินทาง</a></li>
+                        <li><a href="#festivals" class="hover:text-cmOrange transition-colors"><i class="fa-solid fa-angle-right text-xs mr-2 text-cmRed"></i>เทศกาลประเพณี</a></li>
+                        <li><a href="#plan" class="hover:text-cmOrange transition-colors"><i class="fa-solid fa-angle-right text-xs mr-2 text-cmRed"></i>แพลนเที่ยว 3 - 7 วัน</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Useful Emergency Numbers -->
+                <div>
+                    <h4 class="text-white font-semibold mb-4 text-base border-l-2 border-cmRed pl-3">เบอร์โทรสำคัญ</h4>
+                    <ul class="space-y-2.5 text-sm text-gray-400">
+                        <li class="flex items-center"><i class="fa-solid fa-phone text-cmOrange w-6"></i> ททท. เชียงใหม่: 053-248604</li>
+                        <li class="flex items-center"><i class="fa-solid fa-shield-halved text-cmOrange w-6"></i> ตำรวจท่องเที่ยว: 1155</li>
+                        <li class="flex items-center"><i class="fa-solid fa-hospital text-cmOrange w-6"></i> เจ็บป่วยฉุกเฉิน: 1669</li>
+                        <li class="flex items-center"><i class="fa-solid fa-plane text-cmOrange w-6"></i> สนามบินเชียงใหม่: 053-922100</li>
+                    </ul>
+                </div>
+
+                <!-- Col 4: Social -->
+                <div>
+                    <h4 class="text-white font-semibold mb-4 text-base border-l-2 border-cmRed pl-3">ติดตามเรา</h4>
+                    <div class="flex space-x-3 mb-6">
+                        <a href="#" class="w-10 h-10 rounded-xl bg-gray-800 hover:bg-cmRed text-gray-300 hover:text-white flex items-center justify-center transition-all"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-xl bg-gray-800 hover:bg-cmRed text-gray-300 hover:text-white flex items-center justify-center transition-all"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-xl bg-gray-800 hover:bg-cmRed text-gray-300 hover:text-white flex items-center justify-center transition-all"><i class="fa-brands fa-line"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-xl bg-gray-800 hover:bg-cmRed text-gray-300 hover:text-white flex items-center justify-center transition-all"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                    <p class="text-xs text-gray-500">สีประจำจังหวัดเชียงใหม่: สีส้มอมแดง (สีดอกทองกวาว)</p>
+                </div>
+            </div>
+
+            <div class="pt-8 text-center text-xs text-gray-500">
+                &copy; 2026 หลงถิ่น กินเที่ยว พาชมเมืองเชียงใหม่. สงวนลิขสิทธิ์ทุกประการ.
+            </div>
+        </div>
+    </footer>
+
+    <div id="info-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl transform transition-all">
+            <div class="relative h-48">
+                <img id="modal-img" src="" alt="" class="w-full h-full object-cover">
+                <button onclick="closeModal()" class="absolute top-3 right-3 bg-black/40 hover:bg-black/70 text-white w-9 h-9 rounded-full flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="p-6">
+                <h3 id="modal-title" class="text-2xl font-bold text-gray-900 mb-3"></h3>
+                <p id="modal-desc" class="text-gray-600 text-sm leading-relaxed mb-6"></p>
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
+                    <a id="modal-map-link" href="#" target="_blank" rel="noopener" class="w-full sm:w-auto px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-xl text-sm flex items-center justify-center transition-colors">
+                        <i class="fa-solid fa-location-arrow mr-2"></i> เปิดแผนที่นำทาง GPS
+                    </a>
+                    <button onclick="closeModal()" class="w-full sm:w-auto px-5 py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium rounded-xl text-sm transition-colors">
+                        ปิดหน้าต่าง
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            if(mobileMenu.classList.contains('hidden')) {
+                menuIcon.className = 'fa-solid fa-bars text-2xl';
+            } else {
+                menuIcon.className = 'fa-solid fa-xmark text-2xl';
+            }
+        });
+
+        // Close mobile menu when clicking menu links
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.className = 'fa-solid fa-bars text-2xl';
+            });
+        });
+
+        // Places Filter Functionality
+        function filterPlaces(category) {
+            const cards = document.querySelectorAll('.place-card');
+            const btns = document.querySelectorAll('.place-filter-btn');
+
+            btns.forEach(btn => {
+                btn.classList.remove('bg-cmRed', 'text-white');
+                btn.classList.add('bg-white', 'text-gray-600');
+            });
+
+            event.currentTarget.classList.remove('bg-white', 'text-gray-600');
+            event.currentTarget.classList.add('bg-cmRed', 'text-white');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Switch Trip Planning Tabs (3D2N, 5D4N, 7D6N)
+        function switchPlan(planType) {
+            const plan3d2n = document.getElementById('plan-3d2n');
+            const plan5d4n = document.getElementById('plan-5d4n');
+            const plan7d6n = document.getElementById('plan-7d6n');
+
+            const btn3d2n = document.getElementById('btn-3d2n');
+            const btn5d4n = document.getElementById('btn-5d4n');
+            const btn7d6n = document.getElementById('btn-7d6n');
+
+            // Hide all plans
+            plan3d2n.classList.add('hidden');
+            plan5d4n.classList.add('hidden');
+            plan7d6n.classList.add('hidden');
+
+            // Reset all buttons
+            const activeClass = 'plan-tab-btn px-5 py-3 rounded-2xl font-semibold text-sm transition-all bg-cmRed text-white shadow-md shadow-cmRed/20';
+            const inactiveClass = 'plan-tab-btn px-5 py-3 rounded-2xl font-semibold text-sm transition-all bg-gray-100 text-gray-600 hover:bg-cmPeach hover:text-cmRed';
+
+            btn3d2n.className = inactiveClass;
+            btn5d4n.className = inactiveClass;
+            btn7d6n.className = inactiveClass;
+
+            if (planType === '3d2n') {
+                plan3d2n.classList.remove('hidden');
+                btn3d2n.className = activeClass;
+            } else if (planType === '5d4n') {
+                plan5d4n.classList.remove('hidden');
+                btn5d4n.className = activeClass;
+            } else if (planType === '7d6n') {
+                plan7d6n.classList.remove('hidden');
+                btn7d6n.className = activeClass;
+            }
+        }
+
+        // Modal Functions
+        function openModal(title, desc, imgSrc, mapUrl) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-desc').innerText = desc;
+            document.getElementById('modal-img').src = imgSrc;
+            if(mapUrl) {
+                document.getElementById('modal-map-link').href = mapUrl;
+                document.getElementById('modal-map-link').style.display = 'inline-flex';
+            } else {
+                document.getElementById('modal-map-link').style.display = 'none';
+            }
+            document.getElementById('info-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('info-modal').classList.add('hidden');
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('info-modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
